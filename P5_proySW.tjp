@@ -19,7 +19,7 @@ project pSix "Web Game"  2025-12-15 +5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2026-02-25-13:00
+  now 2026-04-15-23:45
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -68,6 +68,10 @@ resource dev2 "Samantha Müller" {
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
+resource dev4 "Rocio Choliz" {
+  email "903475@unizar.es"
+  efficiency 0.5
+}
 
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
@@ -105,7 +109,7 @@ task WMGame "Web & Mobile Game" {
     task tlogic "Game logic" {
       effort 12d
       actual:effort 11d
-      allocate dev1, dev2
+      allocate dev1, dev2, dev4
       depends WMGame.tback.tBEd
       journalentry 2026-02-03 "Game logic completed before deadline" {
         author boss
@@ -115,9 +119,15 @@ task WMGame "Web & Mobile Game" {
     }
     task tbackDev "Back development" {
       effort 20d
-      allocate dev1, dev2
+      allocate dev1, dev2, dev4
       depends WMGame.tback.tlogic
+      journalentry 2026-04-15 "Database logic fixed" {
+        author boss
+        alert green
+        summary "The team has detected and fixed an error related with the database logic."
+      }
     }
+
   }
 
   task twebF "Web Front End" {
@@ -147,6 +157,49 @@ task WMGame "Web & Mobile Game" {
     }    
   }
 
+  task tmobileF "Mobile Front End" {
+    purge chargeset
+    chargeset mFront
+    responsible dev3
+    depends WMGame.tback.tBEd
+
+    task tMobDesign "Mobile GUI Design" {
+      effort 10d
+      allocate dev3
+    }
+    
+    task tMobConst "Mobile Front End Construction" {
+      effort 15d
+      allocate dev2, dev3
+      depends WMGame.tmobileF.tMobDesign
+    }
+    
+    task tMobTest "Mobile Front End Test" {
+      effort 5d
+      allocate dev1
+      depends WMGame.tmobileF.tMobConst
+    }
+  }
+
+  task tcloud "Cloud Deployment" {
+    purge chargeset
+    chargeset manag
+    responsible boss
+    
+    task tEval "Cloud evaluation and decision" {
+      effort 4d
+      allocate boss, dev4
+      depends WMGame.tgdesign
+    }
+
+    task tDeploy "Cloud deployment" {
+      effort 5d
+      allocate dev1
+      depends WMGame.tcloud.tEval
+      depends WMGame.tback.tbackDev
+    }
+  }
+
   task ttest "Acceptance tests" {
       effort 10d
       allocate boss
@@ -154,9 +207,12 @@ task WMGame "Web & Mobile Game" {
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
-      }
+      depends WMGame.tmobileF
+      depends WMGame.tcloud
+      minstart 2026-05-15
+  }
 
-    
+
   task deliveries "Milestones" {
 
     # Some milestones have customer payments associated with them. We
@@ -224,6 +280,16 @@ textreport frame "" {
     center '<[report id="overview"]>'
   }
   
+  taskreport initial_plan "Planificacion_Inicial" {
+    scenarios plan
+    headline "Planificacion Inicial del Proyecto"
+    columns bsi { title 'WBS' }, name, start, end, effort, 
+            chart { ${TaskTip} scale day width 500 }
+    timeformat "%Y-%m-%d"
+    loadunit days
+    hideresource @all
+  }
+
   textreport "Status" {
     formats html
     center -8<-
