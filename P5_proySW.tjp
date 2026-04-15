@@ -5,6 +5,8 @@
  * some elements of it
  */
 
+/*Rocío Chóliz Causapé, NIP: 903475*/
+
 project pSix "Web Game"  2025-12-15 +5m {
   # Set the default time zone for the project. If not specified, UTC
   # is used.
