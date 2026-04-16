@@ -70,7 +70,7 @@ resource dev3 "Peter Green" {
 }
 resource dev4 "Rocio Choliz" {
   email "903475@unizar.es"
-  workinghours mon - fri 9.00 - 13.00
+  workinghours mon - fri 9:00 - 13:00
   limits {dailymax 4h}
 }
 
