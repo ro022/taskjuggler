@@ -176,8 +176,8 @@ task WMGame "Web & Mobile Game" {
     }
     
     task tMobTest "Mobile Front End Test" {
-      effort 5d
-      allocate dev1
+      effort 70d
+      allocate dev1, dev4
       depends WMGame.tmobileF.tMobConst
     }
   }
