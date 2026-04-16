@@ -280,16 +280,6 @@ textreport frame "" {
     formats html
     center '<[report id="overview"]>'
   }
-  
-  taskreport initial_plan "Planificacion_Inicial" {
-    scenarios plan
-    headline "Planificacion Inicial del Proyecto"
-    columns bsi { title 'WBS' }, name, start, end, effort, 
-            chart { ${TaskTip} scale day width 500 }
-    timeformat "%Y-%m-%d"
-    loadunit days
-    hideresource @all
-  }
 
   textreport "Status" {
     formats html
@@ -423,3 +413,13 @@ resourcereport resourceGraph "" {
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
 }
+
+taskreport initial_plan "Planificacion_Inicial" {
+    scenarios plan
+    headline "Planificacion Inicial del Proyecto"
+    columns bsi { title 'WBS' }, name, start, end, effort, 
+            chart { ${TaskTip} scale day width 500 }
+    timeformat "%Y-%m-%d"
+    loadunit days
+    hideresource @all
+  }
