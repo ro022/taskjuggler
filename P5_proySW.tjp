@@ -70,7 +70,8 @@ resource dev3 "Peter Green" {
 }
 resource dev4 "Rocio Choliz" {
   email "903475@unizar.es"
-  efficiency 0.5
+  workinghours mon - fri 9.00 - 13.00
+  limits {dailymax 4h}
 }
 
 # Now we specify the work packages. The whole project is described as
@@ -152,7 +153,7 @@ task WMGame "Web & Mobile Game" {
     }
     task tFEt "Web Front End Test" {
       effort 6d
-      allocate dev1
+      allocate dev1, dev4
       depends WMGame.twebF.tFEc
     }    
   }
@@ -203,7 +204,7 @@ task WMGame "Web & Mobile Game" {
   task ttest "Acceptance tests" {
       effort 10d
       allocate boss
-      allocate dev2
+      allocate dev2, dev4
       actual:effort 20d
       depends WMGame.twebF
       depends WMGame.tback
@@ -317,6 +318,10 @@ textreport frame "" {
     formats html
     title "Resource Graph"
     center '<[report id="resourceGraph"]>'
+  }
+  textreport initPlan "Initial Plan" {
+    formats html
+    center '<[report id="initial_plan"]>'
   }
 }
 
