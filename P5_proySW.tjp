@@ -140,7 +140,7 @@ task WMGame "Web & Mobile Game" {
       effort 10d
       actual:effort 15d
       allocate dev3
-      journalentry 2026-01-15 "Problems with the GUI design tool" {
+      journalentry 2026-02-15 "Problems with the GUI design tool" {
         author dev3
         alert yellow
         summary "The tool used for the GUI design has given me a lot of problems. I recommend to look for other one."
