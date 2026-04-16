@@ -5,7 +5,7 @@
  * some elements of it
  */
 
-project pSix "Web Game"  2025-12-15 +5m {
+project pSix "Web Game"  2025-12-15 +7m {
   # Set the default time zone for the project. If not specified, UTC
   # is used.
   timezone "Europe/Paris"
@@ -91,7 +91,7 @@ task WMGame "Web & Mobile Game" {
   responsible boss
 
   task tgdesign "General System Design" {
-      effort 2d
+      effort 5d
       allocate boss
       depends WMGame.deliveries.start
   }
@@ -108,7 +108,7 @@ task WMGame "Web & Mobile Game" {
       allocate dev1
     }
     task tlogic "Game logic" {
-      effort 12d
+      effort 50d
       actual:effort 11d
       allocate dev1, dev2, dev4
       depends WMGame.tback.tBEd
@@ -119,7 +119,7 @@ task WMGame "Web & Mobile Game" {
       }
     }
     task tbackDev "Back development" {
-      effort 20d
+      effort 45d
       allocate dev1, dev2, dev4
       depends WMGame.tback.tlogic
       journalentry 2026-04-15 "Database logic fixed" {
@@ -137,7 +137,7 @@ task WMGame "Web & Mobile Game" {
     responsible dev3
     depends WMGame.tback.tBEd
     task tGUId "Web GUI Design" {
-      effort 9d
+      effort 10d
       actual:effort 15d
       allocate dev3
       journalentry 2026-01-15 "Problems with the GUI design tool" {
@@ -147,12 +147,12 @@ task WMGame "Web & Mobile Game" {
       }
     }
     task tFEc "Web Front End Construction" {
-      effort 15d
+      effort 40d
       allocate dev2, dev3
       depends WMGame.twebF.tGUId
     }
     task tFEt "Web Front End Test" {
-      effort 6d
+      effort 8d
       allocate dev1, dev4
       depends WMGame.twebF.tFEc
     }    
@@ -165,7 +165,7 @@ task WMGame "Web & Mobile Game" {
     depends WMGame.tback.tBEd
 
     task tMobDesign "Mobile GUI Design" {
-      effort 10d
+      effort 17d
       allocate dev3
     }
     
@@ -176,8 +176,8 @@ task WMGame "Web & Mobile Game" {
     }
     
     task tMobTest "Mobile Front End Test" {
-      effort 70d
-      allocate dev1, dev4
+      effort 9d
+      allocate dev1
       depends WMGame.tmobileF.tMobConst
     }
   }
@@ -194,7 +194,7 @@ task WMGame "Web & Mobile Game" {
     }
 
     task tDeploy "Cloud deployment" {
-      effort 5d
+      effort 7d
       allocate dev1
       depends WMGame.tcloud.tEval
       depends WMGame.tback.tbackDev
